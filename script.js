@@ -1,4 +1,3 @@
-//your JS code here. If required.
 const form = document.getElementById('myForm');
 
 form.addEventListener('submit', (e) => {
