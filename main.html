@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 
 <html>
   <head>
@@ -8,6 +8,49 @@
   <body>
     <!-- write the body here -->
 
-    <script type="text/javascript" src="./script.js"></script>
+    <!-- <script type="text/javascript" src="./script.js"></script>
   </body>
 </html>
+ -->
+
+ <!-- HTML -->
+<form id="myForm">
+  <label for="age">Age:</label>
+  <input type="number" id="age" required>
+  <br>
+  <label for="name">Name:</label>
+  <input type="text" id="name" required>
+  <br>
+  <button id="btn" type="submit">Submit</button>
+</form>
+
+<!-- JavaScript -->
+const form = document.getElementById('myForm');
+const btn = document.getElementById('btn');
+
+btn.addEventListener('click', (e) => {
+  e.preventDefault();
+  const age = document.getElementById('age').value;
+  const name = document.getElementById('name').value;
+
+  if (age === '' || name === '') {
+    alert('Please fill in all fields');
+    return;
+  }
+
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (age >= 18) {
+        resolve(name);
+      } else {
+        reject(name);
+      }
+    }, 4000);
+  });
+
+  promise.then((name) => {
+    alert(`Welcome, ${name}. You can vote.`);
+  }).catch((name) => {
+    alert(`Oh sorry ${name}. You aren't old enough.`);
+  });
+});
