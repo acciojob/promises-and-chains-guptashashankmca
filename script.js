@@ -1,29 +1,31 @@
-const form = document.getElementById('myForm');
+document.getElementById('userForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+    const name = document.getElementById('name').value;
+    const age = parseInt(document.getElementById('age').value);
 
-  const age = document.getElementById('age').value;
-  const name = document.getElementById('name').value;
+    if (!name || isNaN(age)) {
+        alert('Please fill out both fields.');
+        return;
+    }
 
-  if (age === '' || name === '') {
-    alert('Please fill in all fields');
-    return;
-  }
+    const ageCheckPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (age > 18) {
+                resolve(`Welcome, ${name}. You can vote.`);
+            } else {
+                reject(`Oh sorry, ${name}. You aren't old enough.`);
+            }
+        }, 4000); // Wait for 4 seconds
+    });
 
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (age >= 18) {
-        resolve(name);
-      } else {
-        reject(name);
-      }
-    }, 4000);
-  });
+    ageCheckPromise
+        .then((message) => {
+            alert(message);
+        })
+        .catch((message) => {
+            alert(message);
+        });
+});
 
-  promise.then((name) => {
-    alert(`Welcome, ${name}. You can vote.`);
-  }).catch((name) => {
-    alert(`Oh sorry ${name}. You aren't old enough`);
-  });
 });
